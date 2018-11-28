@@ -82,6 +82,18 @@ func (m *Message) ParseCmd() (*CmdPayload, error) {
 	return &p, nil
 }
 
+// ParseStats parses the message payload as StatsPayload
+func (m *Message) ParseStats() (*StatsPayload, error) {
+	if m.Type != StatsMessage {
+		return nil, fmt.Errorf("can't decode %s payload as %s", m.Type, StatsMessage)
+	}
+	p := StatsPayload{}
+	if err := json.Unmarshal(m.Payload, &p); err != nil {
+		return nil, err
+	}
+	return &p, nil
+}
+
 // NewStatsMessage creates a new stats message with the provided payload
 func NewStatsMessage(p *StatsPayload) (*Message, error) {
 	body, err := json.Marshal(p)
