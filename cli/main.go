@@ -1,10 +1,7 @@
 package main
 
 import (
-	"bufio"
-	"fmt"
 	"os"
-	"strings"
 
 	"github.com/runeflow/runeflow/api"
 	"github.com/runeflow/runeflow/client"
@@ -37,13 +34,4 @@ func main() {
 	}
 	usage()
 	os.Exit(1)
-}
-
-func promptString(r *bufio.Reader, prompt string, dest *string) {
-	for *dest == "" {
-		fmt.Print(prompt)
-		if text, err := r.ReadString('\n'); err == nil {
-			*dest = strings.TrimSpace(text)
-		}
-	}
 }

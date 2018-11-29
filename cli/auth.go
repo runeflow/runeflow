@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 
 	"github.com/runeflow/runeflow/api"
+	"github.com/runeflow/runeflow/util"
 )
 
 func auth(a *api.API) {
@@ -13,9 +13,8 @@ func auth(a *api.API) {
 		authEmail(a, os.Args[3])
 		return
 	}
-	reader := bufio.NewReader(os.Stdin)
 	var email string
-	promptString(reader, "Email: ", &email)
+	util.PromptString(&email, "Email: ")
 	authEmail(a, email)
 }
 
