@@ -1,0 +1,14 @@
+[Unit]
+Description=__DESCRIPTION__
+After=network.target
+
+[Service]
+Type=simple
+User=runeflow
+WorkingDirectory=/
+ExecStart=/usr/bin/runeflow run
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+~

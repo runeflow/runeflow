@@ -1,0 +1,7 @@
+Package: runeflow
+Version: __VERSION__
+Architecture: __ARCH__
+Essential: no
+Priority: optional
+Maintainer: Ben Burwell
+Description: __DESCRIPTION__
