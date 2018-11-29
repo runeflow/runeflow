@@ -4,9 +4,21 @@ go:
   - "1.10"
 
 env:
+  matrix:
+  - ARCH=amd64
+  - ARCH=386
   global:
   - secure: XIxsxJ/Y2Zco5ho4FpWjKCl0fKHjUCOPWWDYtEU4+Db74bMkhoUl39q/Jfrc7qHLVl5Fec4L9Yw9knPD1cFFAqTE2UmNLLoFc1ka6KAA/+ToYenEXE1lxfoId+m3yUyBqeeprMkqcRRArnDDCN3Bz0JVheJNIMgnKwDTXzKPCXzhLlrJ17LbPEz5Sp8Jmc+cXT/SM6gPq/ewRwMwpIB5LWssjqEYnVKF0Rglxpjo1SD78vT4niBGFBSwWsag8b3cifBNHYVbiaawsg0rPsfruLlX/2JcLlVf0eGpFDESMZjj1zkRJtEAhHKbqZnnJ/KuykLeaF+UaXYxKFNtq4U0pfPWQTdJGcLvAOzlguS9bRxk6MvqX/+TIqNBjkg+aC/kpNeaWIsuziQ5GRomqwkUDhuGDBgTA9WRcEAFeXw7aEpL0i8+UPE0W2UlvlM1uUzrMlnSuvMcsjehnzl6RpCsbdNE5nAKBohiPaJ0cj4fOOWmrxuwtYkKbIMxuYEp15wcNw3bE1JdslCJj670nT8OGY3XhAZHRVe89zJeJYnBC7acoxjYZjFMb9aP0iTZnQZKfCrfHDjoSNB2cEyaPUsh/tENiAsV5TnrMfuv+cFXLyWDJ2lzaGpliJVy7mOSoagVFAPfTKXhSRDFeQ3LXBtC9xPmuVwFXq46Qlikqp0UCvc=
   - secure: Z/yhfWdXmN8HT8STeraxBBXI/b4XJhukKeW60oo5PH33UvDTxANYchSYAV03wrOCsEuEXn0QoHomRR8eFZxK0h3cCFrpgXiAzrz81C/N8fre4+iCDFxZSEyTH3emWcucmQEj5hYh0UruNAyP62ulbSHLIQ+dB7Oge+wfUPKn9LI3kUSyFb5u1alJjKbjaykfR1PCpZLZcpXYl6B8JNG1suUjBuQDWg/LLg/vWKF7Ol9liNcNA0nxYEoUrbG6TabH6jUCHm/X0XQeJ+kw7YktB0HpDQB82aXOLbZxaHmJV4sEdvMPqf0ZARF9+m1COH5yqfCb6vaM9JokX3lQkxJsW4dnGoldtLYhBSrUNuZj0p5Mggk6STZEK+CEB1byIOJ5dfjo++qMPhNQlxHXTzgltNWljD7cySQ6Pvwkt8ufMh6PW9+mAXWKsJK2VlEA1gMEk2JETwdPBHFJ45+1LajKb350spuFWouL055dTilK5KvgfeRnHEhaInkpXGsbSnNTAIyogzNnjoCh5bKNcw+JJbyf81UetOku99F8NscHYETLI7bKRjGcwMyQvJgGHgHOROh+gdaIC76eEjQg7bQ1jhLT/MvVwQ3psdrP6DPSnaWwq0j2q/hYkh6arD5DHSFcj4WFVjpYT+H8QlkaIMk+QpookO6jgAiixR22pf2YlUY=
 
 install: go get -t -v -u ./...
 
+deploy:
+  provider: bintray
+  file: bintray.json
+  user: $BINTRAY_USER
+  key: $BINTRAY_API_KEY
+  skip_cleanup: true
+  on:
+    repo: runeflow/runeflow
+    branch: master

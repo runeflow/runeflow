@@ -1,0 +1,26 @@
+{
+  "package": {
+    "name": "__PACKAGE__",
+    "repo": "debian",
+    "subject": "runeflow"
+  },
+  "version": {
+    "name": "__VERSION__",
+    "desc": "__DESCRIPTION__"
+  },
+  "licenses": ["MIT"],
+  "desc": "__DESCRIPTION__",
+  "files": [
+    {
+      "includePattern": "./(.[^/]*(\\.deb)$)",
+      "uploadPattern": "$1",
+      "matrixParams": {
+        "deb_distribution": "unstable",
+        "deb_component": "main",
+        "deb_architecture": "__ARCH__"
+      }
+    }
+  ],
+  "publish": true,
+  "override": false
+}
