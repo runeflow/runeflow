@@ -53,7 +53,9 @@ func (c *Client) CloseConn() error {
 	if c.conn == nil {
 		return ErrConnectionNotOpen
 	}
-	return c.conn.Close()
+	err := c.conn.Close()
+	c.conn = nil
+	return err
 }
 
 // SendClose sends a message requesting that the server terminate the connection
