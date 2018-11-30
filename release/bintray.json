@@ -2,25 +2,30 @@
   "package": {
     "name": "__PACKAGE__",
     "repo": "debian",
-    "subject": "runeflow"
+    "subject": "runeflow",
+    "desc": "__DESCRIPTION__",
+    "website_url": "https://runeflow.com",
+    "issue_tracker_url": "https://github.com/runeflow/runeflow/issues",
+    "vcs_url": "https://github.com/runeflow/runeflow.git",
+    "licenses": ["MIT"],
+    "public_download_numbers": false,
+    "public_stats": false
   },
   "version": {
     "name": "__VERSION__",
-    "desc": "__DESCRIPTION__"
+    "desc": "__DESCRIPTION__",
+    "gpgSign": true
   },
-  "licenses": ["MIT"],
-  "desc": "__DESCRIPTION__",
   "files": [
     {
-      "includePattern": "./(.[^/]*(\\.deb)$)",
-      "uploadPattern": "$1",
+      "includePattern": "dist/(.*\\.deb)$)",
+      "uploadPattern": "pool/g/$1",
       "matrixParams": {
         "deb_distribution": "unstable",
         "deb_component": "main",
-        "deb_architecture": "__ARCH__"
+        "deb_architecture": "__DEB_ARCH__"
       }
     }
   ],
-  "publish": true,
-  "override": false
+  "publish": true
 }
