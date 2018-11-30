@@ -8,9 +8,10 @@
 ### Ubuntu
 
 ```
-$ wget -O - https://download.runeflow.com/linux/ubuntu/gpg | apt-key add -
-$ codename=$(awk -F '=' '$1=="VERSION_CODENAME"{print $2}' < /etc/os-release)
-$ echo "deb https://dl.bintray.com/runeflow/debian $codename main" > /etc/apt/sources.list.d/runeflow.list
+$ wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=bintray' | sudo apt-key add -
+$ echo "deb https://dl.bintray.com/runeflow/debian unstable main" | sudo tee /etc/apt/sources.list.d/runeflow.list
+$ sudo apt-get update
+$ sudo apt-get install runeflow
 ```
 
 ## Sign up for a Runeflow account
