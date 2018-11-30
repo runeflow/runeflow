@@ -14,7 +14,7 @@ env:
 install: go get -t -v -u ./...
 
 before_script:
-  - if [[ ! -z "$TRAVIS_TAG" ]]; then export VERSION=$TRAVIS_TAG; fi
+  - if [[ ! -z "$TRAVIS_TAG" ]]; then export VERSION=${TRAVIS_TAG:1}; fi
 
 deploy:
   provider: bintray
