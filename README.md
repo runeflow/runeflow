@@ -1,5 +1,8 @@
 # Runeflow
 
+[![Build Status](https://travis-ci.org/runeflow/runeflow.svg?branch=master)](https://travis-ci.org/runeflow/runeflow)
+[![Godoc Reference](https://godoc.org/github.com/runeflow/runeflow?status.svg)](https://godoc.org/github.com/runeflow/runeflow)
+
 ## Install the Runeflow CLI
 
 ### Ubuntu

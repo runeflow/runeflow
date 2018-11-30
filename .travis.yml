@@ -13,6 +13,9 @@ env:
 
 install: go get -t -v -u ./...
 
+before_deploy:
+  - export VERSION=$TRAVIS_TAG
+
 deploy:
   provider: bintray
   file: build/bintray.json
@@ -22,3 +25,4 @@ deploy:
   on:
     repo: runeflow/runeflow
     branch: master
+    tag: true
