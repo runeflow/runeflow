@@ -8,7 +8,7 @@
 ### Ubuntu
 
 ```
-$ wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=bintray' | sudo apt-key add -
+$ wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=runeflow' | sudo apt-key add -
 $ echo "deb https://dl.bintray.com/runeflow/debian unstable main" | sudo tee /etc/apt/sources.list.d/runeflow.list
 $ sudo apt-get update
 $ sudo apt-get install runeflow

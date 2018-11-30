@@ -19,9 +19,11 @@ before_script:
 deploy:
   provider: bintray
   file: build/bintray.json
-  user: $BINTRAY_USER
-  key: $BINTRAY_API_KEY
+  user: "$BINTRAY_USER"
+  key: "$BINTRAY_API_KEY"
   skip_cleanup: true
   on:
     repo: runeflow/runeflow
     tags: true
+  passphrase:
+    secure: Fjt86dKVo1m7/fpIZ4ghszhgv617SNoN7OWwGyzMW6SvNmAKoIn/cRefpHwS8qygv60BMRW972WwqIJzXNY0ss7W10iTuGphk7qAGjOQLWmc18aS4kHW/JUDTt+r8gUsSbiLnzWzF4Z/+mxXiKxnq/w9dMtO8Zv5plbqQ3yY8p1L13kBWwi9eCPByamc8X/e+kwz8J9BdzNRZqlbkKVO2gO4fh+E6sYA+W5mMpg3Vapbke0fay4DcQ65/rC4+II8KIS1E8mMybGjTgFerJsM+NZWvTbo00Dx0ShUO33cwvIMcCZ4x6X1MEJIeTJgRgdZ1BY5oRZKxOoxl7e/ATra6/0hrJ23Qw4TBizJDIUPBbin3fr1pK9sMJTYYUfT78icmY900Gt09qrQg+Mug90K233mDRUtYcwqJQ8axl795N53eJhxJNoZJQESiUxYl3XPzt75E/lu94PBR/pceHAO99kJSxHVv31sAZiMawYU+yM6213cJem0INext6wYoW1T2rb8Zigv3XdAPsn/OEoWE2L+B4J8yJ4fYJwsa7eiC2qYP60TiVG2DZzXMjfmYDQXsbHYSPZeaD/z0mphS6odALfnWVjVwWUlF8Jp2mw4okCSIk+Fq83zL64FJUuM4zdCM39YVc+UDD5fRu8oSvzLJVD+wvhd/rhM+W1y3pp9KNA=
