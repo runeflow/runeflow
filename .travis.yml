@@ -13,8 +13,8 @@ env:
 
 install: go get -t -v -u ./...
 
-before_deploy:
-  - export VERSION=$TRAVIS_TAG
+before_script:
+  - if [[ ! -z "$TRAVIS_TAG" ]]; then export VERSION=$TRAVIS_TAG; fi
 
 deploy:
   provider: bintray
@@ -24,5 +24,4 @@ deploy:
   skip_cleanup: true
   on:
     repo: runeflow/runeflow
-    branch: master
-    tag: true
+    tags: true
