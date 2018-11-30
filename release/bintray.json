@@ -18,7 +18,7 @@
   },
   "files": [
     {
-      "includePattern": "dist/(.*\\.deb)$)",
+      "includePattern": "dist/(.*\\.deb)$",
       "uploadPattern": "pool/g/$1",
       "matrixParams": {
         "deb_distribution": "unstable",
