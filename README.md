@@ -40,8 +40,3 @@ line. This is more convenient for scripting.
 ```
 $ runeflow auth --email me@example.com
 ```
-
-##### Coming soon!
-
-> Rather than using your email address and needing to confirm the new server, you
-> can generate a token for your account that can be used to register new servers.
