@@ -2,20 +2,19 @@ package config
 
 import (
 	"io/ioutil"
-	"path"
 	"strings"
 
 	"github.com/runeflow/runeflow/util"
 	"github.com/spf13/viper"
 )
 
-const configPath = "/etc/runeflow"
-
 const (
 	endpoint    = "endpoint"
 	registerURL = "register_url"
 	authURL     = "auth_url"
 )
+
+const agentIDFile = "/var/lib/runeflow/agent_id"
 
 // Config holds configuration info
 type Config struct {
@@ -27,7 +26,7 @@ func NewConfig() *Config {
 	v := viper.New()
 	v.SetConfigName("runeflow")
 	v.SetConfigType("yaml")
-	v.AddConfigPath(configPath)
+	v.AddConfigPath("/etc/runeflow")
 	v.SetDefault(endpoint, "wss://api.runeflow.com/agent")
 	v.SetDefault(registerURL, "https://api.runeflow.com/register")
 	v.SetDefault(authURL, "https://api.runeflow.com/agent")
@@ -40,10 +39,19 @@ func NewConfig() *Config {
 
 // GetAgentID gets the configured API key
 func (c *Config) GetAgentID() (string, error) {
-	agentIDFile := path.Join(configPath, "agent_id")
 	data, err := ioutil.ReadFile(agentIDFile)
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(string(data)), nil
+}
+
+// GetOrInitAgentID gets the configured Agent ID, or if one has not been
+// configured, generates a new one
+func (c *Config) GetOrInitAgentID() (string, error) {
+	id, err := c.GetAgentID()
 	if err == nil {
-		return strings.TrimSpace(string(data)), nil
+		return id, nil
 	}
 	k, err := util.RandomString()
 	if err != nil {

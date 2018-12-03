@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Enable and start the runeflow service
 systemctl enable runeflow.service
 systemctl start runeflow.service
-chown --recursive runeflow /etc/runeflow
+
+# Create the Runeflow var directory for storing the agent ID file
+mkdir -p /var/lib/runeflow
+chown runeflow:nogroup /var/lib/runeflow
+chmod 755 /var/lib/runeflow

@@ -13,10 +13,26 @@ var version string
 var buildDate string
 var gitRevision string
 
+const (
+	// ExitStatusOK indicates successful execution
+	ExitStatusOK = 0
+
+	// ExitStatusInvalidCommand indicates an unrecognized usage
+	ExitStatusInvalidCommand = 1
+
+	// ExitStatusNoAgentID indicates that Runeflow tried to run, but an Agent ID
+	// was not configured
+	ExitStatusNoAgentID = 2
+
+	// ExitStatusAPIError indicates that there was an API error when running the
+	// command
+	ExitStatusAPIError = 3
+)
+
 func main() {
 	if len(os.Args) < 2 {
 		usage()
-		os.Exit(1)
+		os.Exit(ExitStatusInvalidCommand)
 	}
 	cfg := config.NewConfig()
 	a := api.NewAPI(cfg)
@@ -25,25 +41,25 @@ func main() {
 		agentID, err := cfg.GetAgentID()
 		if err != nil {
 			fmt.Printf("error getting agent id: %v\n", err)
-			os.Exit(1)
+			os.Exit(ExitStatusNoAgentID)
 		}
 		run(client.NewClient(agentID, cfg.GetEndpoint()))
-		os.Exit(0)
+		os.Exit(ExitStatusOK)
 	case "register":
 		register(a)
-		os.Exit(0)
+		os.Exit(ExitStatusOK)
 	case "auth":
 		auth(a)
-		os.Exit(0)
+		os.Exit(ExitStatusOK)
 	case "-h", "--help", "help":
 		usage()
-		os.Exit(0)
+		os.Exit(ExitStatusOK)
 	case "-v", "--version":
 		showVersion()
-		os.Exit(0)
+		os.Exit(ExitStatusOK)
 	}
 	usage()
-	os.Exit(1)
+	os.Exit(ExitStatusInvalidCommand)
 }
 
 func showVersion() {

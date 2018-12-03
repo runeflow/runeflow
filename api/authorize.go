@@ -17,7 +17,7 @@ type AuthorizeJSON struct {
 // Authorize sends a request to authorize the configured API key for the
 // supplied email address.
 func (a *API) Authorize(email string) error {
-	agentID, err := a.conf.GetAgentID()
+	agentID, err := a.conf.GetOrInitAgentID()
 	if err != nil {
 		return fmt.Errorf("error reading agent ID: %v", err)
 	}

@@ -2,3 +2,4 @@
 
 systemctl stop runeflow.service
 systemctl disable runeflow.service
+rm -rf /var/lib/runeflow

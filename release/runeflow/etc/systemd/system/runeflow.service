@@ -8,6 +8,7 @@ User=runeflow
 WorkingDirectory=/
 ExecStart=/usr/bin/runeflow run
 Restart=on-failure
+SuccessExitStatus=2
 
 [Install]
 WantedBy=multi-user.target
