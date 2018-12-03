@@ -9,14 +9,9 @@ import (
 
 func register(a *api.API) {
 	fmt.Println("Welcome to Runeflow! If you already have an account, run 'runeflow auth' instead.")
-	var (
-		email     string
-		firstName string
-		lastName  string
-	)
-	util.PromptString(&email, "Email: ")
-	util.PromptString(&firstName, "First Name: ")
-	util.PromptString(&lastName, "Last Name: ")
+	email := util.PromptString("Email: ")
+	firstName := util.PromptString("First Name: ")
+	lastName := util.PromptString("Last Name: ")
 	if err := a.Register(email, firstName, lastName); err != nil {
 		fmt.Println("There was a problem completing your registration. The error was:")
 		fmt.Printf("%v\n", err)

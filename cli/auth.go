@@ -13,8 +13,7 @@ func auth(a *api.API) {
 		authEmail(a, os.Args[3])
 		return
 	}
-	var email string
-	util.PromptString(&email, "Email: ")
+	email := util.PromptString("Email: ")
 	authEmail(a, email)
 }
 

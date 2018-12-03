@@ -1,1 +1,15 @@
 # Runeflow configuration file
+#
+# The default values are commented out below, uncomment and change them if you
+# need to!
+
+# Endpoint where Runeflow will establish a websocket connection
+#endpoint: wss://api.runeflow.com/agent
+
+# Register URL is the URL the client will use to register a new Runeflow
+# account when you run `runeflow register`
+#register_url: https://api.runeflow.com/register
+
+# Auth URL is the URL the client will make a POST request to in order to
+# associate with a particular Runeflow account when you run `runeflow auth`
+#auth_url: https://api.runeflow.com/agent

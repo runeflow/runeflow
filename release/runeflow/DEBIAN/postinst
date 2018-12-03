@@ -2,3 +2,4 @@
 
 systemctl enable runeflow.service
 systemctl start runeflow.service
+chown --recursive runeflow /etc/runeflow

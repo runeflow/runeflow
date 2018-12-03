@@ -1,19 +1,20 @@
 package config
 
 import (
-	"fmt"
-	"os"
+	"io/ioutil"
+	"path"
 	"strings"
 
 	"github.com/runeflow/runeflow/util"
 	"github.com/spf13/viper"
 )
 
+const configPath = "/etc/runeflow"
+
 const (
-	apikey      = "apikey"
 	endpoint    = "endpoint"
-	apiRegister = "api.register"
-	apiAuth     = "api.auth"
+	registerURL = "register_url"
+	authURL     = "auth_url"
 )
 
 // Config holds configuration info
@@ -26,21 +27,32 @@ func NewConfig() *Config {
 	v := viper.New()
 	v.SetConfigName("runeflow")
 	v.SetConfigType("yaml")
-	v.AddConfigPath("/etc/runeflow/")
-	v.SetDefault("endpoint", "wss://api.runeflow.com/agent")
-	v.SetDefault("api.register", "https://api.runeflow.com/register")
-	v.SetDefault("api.auth", "https://api.runeflow.com/agent")
+	v.AddConfigPath(configPath)
+	v.SetDefault(endpoint, "wss://api.runeflow.com/agent")
+	v.SetDefault(registerURL, "https://api.runeflow.com/register")
+	v.SetDefault(authURL, "https://api.runeflow.com/agent")
 	v.SetEnvPrefix("RUNEFLOW")
 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	v.AutomaticEnv()
 	v.ReadInConfig()
-	initAPIKey(v)
 	return &Config{v: v}
 }
 
-// GetAPIKey gets the configured API key
-func (c *Config) GetAPIKey() string {
-	return c.v.GetString(apikey)
+// GetAgentID gets the configured API key
+func (c *Config) GetAgentID() (string, error) {
+	agentIDFile := path.Join(configPath, "agent_id")
+	data, err := ioutil.ReadFile(agentIDFile)
+	if err == nil {
+		return strings.TrimSpace(string(data)), nil
+	}
+	k, err := util.RandomString()
+	if err != nil {
+		return "", err
+	}
+	if err := ioutil.WriteFile(agentIDFile, []byte(k+"\n"), 0644); err != nil {
+		return "", err
+	}
+	return k, nil
 }
 
 // GetEndpoint gets the configured websocket endpoint
@@ -48,34 +60,12 @@ func (c *Config) GetEndpoint() string {
 	return c.v.GetString(endpoint)
 }
 
-// GetAPIRegister gets the registration URL
-func (c *Config) GetAPIRegister() string {
-	return c.v.GetString(apiRegister)
+// GetRegisterURL gets the registration URL
+func (c *Config) GetRegisterURL() string {
+	return c.v.GetString(registerURL)
 }
 
-// GetAPIAuth gets the registration URL
-func (c *Config) GetAPIAuth() string {
-	return c.v.GetString(apiAuth)
-}
-
-func initAPIKey(v *viper.Viper) {
-	if v.IsSet(apikey) {
-		return
-	}
-	fmt.Println("no api key")
-	k, err := util.RandomString()
-	if err != nil {
-		fmt.Printf("error creating key: %v\n", err)
-	}
-	fmt.Printf("created key: %s\n", k)
-	v.Set(apikey, k)
-	f, err := os.OpenFile(v.ConfigFileUsed(), os.O_APPEND|os.O_WRONLY, 0644)
-	if err != nil {
-		fmt.Printf("error opening config file for writing: %v\n", err)
-		return
-	}
-	defer f.Close()
-	if _, err = f.WriteString(fmt.Sprintf("\n%s: %s\n", apikey, k)); err != nil {
-		fmt.Printf("error appending api key to file: %v\n", err)
-	}
+// GetAuthURL gets the new agent authorization URL
+func (c *Config) GetAuthURL() string {
+	return c.v.GetString(authURL)
 }

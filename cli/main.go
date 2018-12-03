@@ -20,10 +20,14 @@ func main() {
 	}
 	cfg := config.NewConfig()
 	a := api.NewAPI(cfg)
-	client := client.NewClient(cfg.GetAPIKey(), cfg.GetEndpoint())
 	switch os.Args[1] {
 	case "run":
-		run(client)
+		agentID, err := cfg.GetAgentID()
+		if err != nil {
+			fmt.Printf("error getting agent id: %v\n", err)
+			os.Exit(1)
+		}
+		run(client.NewClient(agentID, cfg.GetEndpoint()))
 		os.Exit(0)
 	case "register":
 		register(a)

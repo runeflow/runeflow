@@ -17,14 +17,18 @@ type AuthorizeJSON struct {
 // Authorize sends a request to authorize the configured API key for the
 // supplied email address.
 func (a *API) Authorize(email string) error {
+	agentID, err := a.conf.GetAgentID()
+	if err != nil {
+		return fmt.Errorf("error reading agent ID: %v", err)
+	}
 	data, err := json.Marshal(&AuthorizeJSON{
 		Email:   email,
-		AgentID: a.conf.GetAPIKey(),
+		AgentID: agentID,
 	})
 	if err != nil {
 		return err
 	}
-	resp, err := a.client.Post(a.conf.GetAPIAuth(), "application/json", bytes.NewReader(data))
+	resp, err := a.client.Post(a.conf.GetAuthURL(), "application/json", bytes.NewReader(data))
 	if err != nil {
 		return fmt.Errorf("error making HTTP request: %v", err)
 	}

@@ -25,7 +25,7 @@ func (a *API) Register(email, firstName, lastName string) error {
 	if err != nil {
 		return err
 	}
-	resp, err := a.client.Post(a.conf.GetAPIRegister(), "application/json", bytes.NewReader(data))
+	resp, err := a.client.Post(a.conf.GetRegisterURL(), "application/json", bytes.NewReader(data))
 	if err != nil {
 		return fmt.Errorf("error making HTTP request: %v", err)
 	}
