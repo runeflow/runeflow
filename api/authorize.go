@@ -10,8 +10,10 @@ import (
 
 // AuthorizeJSON holds agent authorization details
 type AuthorizeJSON struct {
-	Email   string `json:"email"`
-	AgentID string `json:"agentID"`
+	Email    string `json:"email"`
+	AgentID  string `json:"agentID"`
+	Hostname string `json:"hostname"`
+	OSName   string `json:"osName"`
 }
 
 // Authorize sends a request to authorize the configured API key for the
