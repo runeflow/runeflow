@@ -24,6 +24,7 @@ func (r *ipRange) contains(ipAddress net.IP) bool {
 }
 
 var privateRanges = []*ipRange{
+	newIPRange("127.0.0.0", "127.255.255.255"),
 	newIPRange("10.0.0.0", "10.255.255.255"),
 	newIPRange("100.64.0.0", "100.127.255.255"),
 	newIPRange("172.16.0.0", "172.31.255.255"),
