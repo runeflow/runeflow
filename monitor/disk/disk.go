@@ -33,6 +33,15 @@ func (d *Monitor) Sample() interface{} {
 	return stableDisks
 }
 
+// A Disk represents the stats for a mounted filesystem
+type Disk struct {
+	Mountpoint string `json:"mountpoint"`
+	Filesystem string `json:"filesystem"`
+	Blocks     int64  `json:"blocks"`
+	BlockSize  int64  `json:"blockSize"`
+	BlocksFree int64  `json:"blocksFree"`
+}
+
 func getMountedDisks() ([]*Disk, error) {
 	data, err := ioutil.ReadFile("/proc/mounts")
 	if err != nil {
@@ -58,9 +67,9 @@ func (d *Disk) statfs() error {
 	if err != nil {
 		return err
 	}
-	d.Blocks = stat.Blocks
-	d.BlockSize = stat.Bsize
-	d.BlocksFree = stat.Bfree
+	d.Blocks = int64(stat.Blocks)
+	d.BlockSize = int64(stat.Bsize)
+	d.BlocksFree = int64(stat.Bfree)
 	return nil
 }
 
