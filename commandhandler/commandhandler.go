@@ -67,10 +67,10 @@ func (h *CommandHandler) HandleCommand(id, action string) *message.CmdResultPayl
 		errMsg = err.Error()
 	}
 	return &message.CmdResultPayload{
-		ID:        id,
-		Error:     errMsg,
-		StdOutput: stdOut,
-		StdError:  stdErr,
+		ID:     id,
+		Error:  errMsg,
+		StdOut: stdOut,
+		StdErr: stdErr,
 	}
 }
 
