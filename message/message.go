@@ -59,8 +59,10 @@ type CmdAckPayload struct {
 // command, the client might send a failure message but if the reboot is
 // successful, the connection will be terminated.
 type CmdResultPayload struct {
-	ID      string `json:"id"`
-	Success bool   `json:"success"`
+	ID     string `json:"id"`
+	Error  string `json:"error"`
+	StdOut string `json:"stdOut"`
+	StdErr string `json:"stdErr"`
 }
 
 // A DiskStats represents the stats for a mounted filesystem
@@ -136,6 +138,33 @@ func NewStatsMessage(p *StatsPayload) (*Message, error) {
 	}
 	return &Message{
 		Type:    StatsMessage,
+		Payload: body,
+	}, nil
+}
+
+// NewCmdAckMessage creates a new ack message for the command id received
+func NewCmdAckMessage(id string) (*Message, error) {
+	ack := CmdAckPayload{
+		ID: id,
+	}
+	body, err := json.Marshal(ack)
+	if err != nil {
+		return nil, err
+	}
+	return &Message{
+		Type:    CmdAckMessage,
+		Payload: body,
+	}, nil
+}
+
+// NewCmdResultMessage creates a new result message for the command
+func NewCmdResultMessage(r *CmdResultPayload) (*Message, error) {
+	body, err := json.Marshal(r)
+	if err != nil {
+		return nil, err
+	}
+	return &Message{
+		Type:    CmdResultMessage,
 		Payload: body,
 	}, nil
 }

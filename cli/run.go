@@ -80,7 +80,13 @@ func establishConnection(c *client.Client, cmdHandler *commandhandler.CommandHan
 			switch msg.Type {
 			case message.CmdMessage:
 				if payload, err := msg.ParseCmd(); err == nil {
-					cmdHandler.HandleCommand(payload.ID, payload.Action)
+					if err := c.SendCommandAck(payload.ID); err != nil {
+						log.Printf("error acking command: %v", err.Error())
+					}
+					res := cmdHandler.HandleCommand(payload.ID, payload.Action)
+					if err := c.SendCommandResult(res); err != nil {
+						log.Printf("error sending command results: %v", err.Error())
+					}
 				}
 			}
 			log.Printf("got message: %v", msg)
