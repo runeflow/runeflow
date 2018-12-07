@@ -10,20 +10,24 @@ import (
 
 // AuthorizeJSON holds agent authorization details
 type AuthorizeJSON struct {
-	Email   string `json:"email"`
-	AgentID string `json:"agentID"`
+	Email    string `json:"email"`
+	AgentID  string `json:"agentID"`
+	Hostname string `json:"hostname"`
+	OSName   string `json:"osName"`
 }
 
 // Authorize sends a request to authorize the configured API key for the
 // supplied email address.
-func (a *API) Authorize(email string) error {
+func (a *API) Authorize(email, hostname, osName string) error {
 	agentID, err := a.conf.GetOrInitAgentID()
 	if err != nil {
 		return fmt.Errorf("error reading agent ID: %v", err)
 	}
 	data, err := json.Marshal(&AuthorizeJSON{
-		Email:   email,
-		AgentID: agentID,
+		Email:    email,
+		AgentID:  agentID,
+		Hostname: hostname,
+		OSName:   osName,
 	})
 	if err != nil {
 		return err

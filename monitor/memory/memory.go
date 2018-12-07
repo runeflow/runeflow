@@ -7,15 +7,9 @@ import (
 	"log"
 	"strconv"
 	"strings"
-)
 
-// A Stats holds memory usage information
-type Stats struct {
-	MemTotal  int64 `json:"memTotal"`
-	MemFree   int64 `json:"memFree"`
-	SwapTotal int64 `json:"swapTotal"`
-	SwapFree  int64 `json:"swapFree"`
-}
+	"github.com/runeflow/runeflow/message"
+)
 
 // Monitor is an implementation of the Monitor interface
 type Monitor struct{}
@@ -26,21 +20,20 @@ func NewMonitor() *Monitor {
 }
 
 // Sample collects memory usage
-func (m *Monitor) Sample() interface{} {
+func (m *Monitor) Sample(stats *message.StatsPayload) {
 	contents, err := ioutil.ReadFile("/proc/meminfo")
 	if err != nil {
 		log.Printf("error reading meminfo: %v", err)
-		return nil
+		return
 	}
 	lines := strings.Split(string(contents), "\n")
-	stats := &Stats{}
+	stats.Memory = &message.MemoryStats{}
 	for _, line := range lines {
-		readInto(&stats.MemTotal, "MemTotal", line)
-		readInto(&stats.MemFree, "MemFree", line)
-		readInto(&stats.SwapTotal, "SwapTotal", line)
-		readInto(&stats.SwapFree, "SwapFree", line)
+		readInto(&stats.Memory.MemTotal, "MemTotal", line)
+		readInto(&stats.Memory.MemFree, "MemFree", line)
+		readInto(&stats.Memory.SwapTotal, "SwapTotal", line)
+		readInto(&stats.Memory.SwapFree, "SwapFree", line)
 	}
-	return stats
 }
 
 func readInto(dst *int64, prefix, line string) {

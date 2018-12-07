@@ -4,7 +4,6 @@ After=network.target
 
 [Service]
 Type=simple
-User=runeflow
 WorkingDirectory=/
 ExecStart=/usr/bin/runeflow run
 Restart=on-failure

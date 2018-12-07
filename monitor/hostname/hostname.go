@@ -1,6 +1,10 @@
 package hostname
 
-import "os"
+import (
+	"os"
+
+	"github.com/runeflow/runeflow/message"
+)
 
 // Monitor is a hostname monitor
 type Monitor struct{}
@@ -11,10 +15,10 @@ func NewMonitor() *Monitor {
 }
 
 // Sample checks the hostname
-func (m *Monitor) Sample() interface{} {
+func (m *Monitor) Sample(stats *message.StatsPayload) {
 	hn, err := os.Hostname()
 	if err != nil {
-		return nil
+		return
 	}
-	return hn
+	stats.Hostname = &hn
 }

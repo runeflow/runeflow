@@ -118,21 +118,21 @@ func establishConnection(c *client.Client, cmdHandler *commandhandler.CommandHan
 	}
 }
 
-func setupMonitors() map[string]monitor.Monitor {
-	return map[string]monitor.Monitor{
-		"disk":     disk.NewMonitor(),
-		"mem":      memory.NewMonitor(),
-		"cpu":      cpu.NewMonitor(),
-		"websites": websites.NewMonitor(),
-		"apache":   apache.NewMonitor(),
-		"hostname": hostname.NewMonitor(),
+func setupMonitors() []monitor.Monitor {
+	return []monitor.Monitor{
+		disk.NewMonitor(),
+		memory.NewMonitor(),
+		cpu.NewMonitor(),
+		websites.NewMonitor(),
+		apache.NewMonitor(),
+		hostname.NewMonitor(),
 	}
 }
 
-func collectStats(monitors map[string]monitor.Monitor) map[string]interface{} {
-	stats := map[string]interface{}{}
-	for name, mon := range monitors {
-		stats[name] = mon.Sample()
+func collectStats(monitors []monitor.Monitor) *message.StatsPayload {
+	stats := &message.StatsPayload{Timestamp: time.Now()}
+	for _, mon := range monitors {
+		mon.Sample(stats)
 	}
 	return stats
 }

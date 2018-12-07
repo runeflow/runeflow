@@ -4,6 +4,8 @@ import (
 	"log"
 	"os/exec"
 	"strings"
+
+	"github.com/runeflow/runeflow/message"
 )
 
 // Monitor keeps track of websites that we can discover as being hosted on this machine
@@ -15,13 +17,13 @@ func NewMonitor() *Monitor {
 }
 
 // Sample attempts to discover websites being hosted on this machine
-func (m *Monitor) Sample() interface{} {
+func (m *Monitor) Sample(stats *message.StatsPayload) {
 	apacheHosts, err := discoverApacheVHosts()
 	if err != nil {
 		log.Printf("error discovering apache vhosts: %v", err)
-		return nil
+		return
 	}
-	return apacheHosts
+	stats.Websites = apacheHosts
 }
 
 func discoverApacheVHosts() ([]string, error) {
