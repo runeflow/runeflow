@@ -58,9 +58,9 @@ func (d *Disk) statfs() error {
 	if err != nil {
 		return err
 	}
-	d.Blocks = stat.Blocks
-	d.BlockSize = stat.Bsize
-	d.BlocksFree = stat.Bfree
+	d.Blocks = uint64(stat.Blocks)
+	d.BlockSize = int64(stat.Bsize)
+	d.BlocksFree = uint64(stat.Bfree)
 	return nil
 }
 

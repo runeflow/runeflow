@@ -97,3 +97,21 @@ func (c *Client) SendStats(stats map[string]interface{}) error {
 	}
 	return c.conn.WriteJSON(statsMessage)
 }
+
+// SendCommandAck tells the server we received the command
+func (c *Client) SendCommandAck(id string) error {
+	mes, err := message.NewCmdAckMessage(id)
+	if err != nil {
+		return err
+	}
+	return c.conn.WriteJSON(mes)
+}
+
+// SendCommandResult sends the result of the command to the server
+func (c *Client) SendCommandResult(r *message.CmdResultPayload) error {
+	msg, err := message.NewCmdResultMessage(r)
+	if err != nil {
+		return err
+	}
+	return c.conn.WriteJSON(msg)
+}
