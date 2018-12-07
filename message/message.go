@@ -60,50 +60,16 @@ type CmdAckPayload struct {
 // successful, the connection will be terminated.
 type CmdResultPayload struct {
 	ID        string `json:"id"`
-	Error     error  `json:"error"`
+	Error     string `json:"error"`
 	StdOutput string `json:"stdOutput"`
 	StdError  string `json:"stdError"`
-}
-
-// A DiskStats represents the stats for a mounted filesystem
-type DiskStats struct {
-	Mountpoint string `json:"mountpoint"`
-	Filesystem string `json:"filesystem"`
-	Blocks     int64  `json:"blocks"`
-	BlockSize  int64  `json:"blockSize"`
-	BlocksFree int64  `json:"blocksFree"`
-}
-
-// A MemoryStats holds memory usage information
-type MemoryStats struct {
-	MemTotal  int64 `json:"memTotal"`
-	MemFree   int64 `json:"memFree"`
-	SwapTotal int64 `json:"swapTotal"`
-	SwapFree  int64 `json:"swapFree"`
-}
-
-// A CPUStats is the result of the CPU statistics
-type CPUStats struct {
-	Used float64 `json:"used"`
-}
-
-// ApacheStats are the apache statistics we retrieve
-type ApacheStats struct {
-	IsRunning         bool    `json:"isRunning"`
-	Uptime            int64   `json:"uptime"`
-	RequestsPerSecond float64 `json:"requestsPerSecond"`
 }
 
 // A StatsPayload represents the payload for a StatsMessage message. It
 // contains a timestamp and a dictionary of statistics being reported.
 type StatsPayload struct {
-	Disk      []*DiskStats `json:"disk"`
-	Memory    *MemoryStats `json:"mem"`
-	CPU       *CPUStats    `json:"cpu"`
-	Websites  []string     `json:"websites"`
-	Apache    *ApacheStats `json:"apache"`
-	Hostname  *string      `json:"hostname"`
-	Timestamp time.Time    `json:"timestamp"`
+	Stats     map[string]interface{} `json:"stats"`
+	Timestamp time.Time              `json:"timestamp"`
 }
 
 // ParseCmd parses the message payload as CmdPayload

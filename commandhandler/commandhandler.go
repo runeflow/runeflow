@@ -42,7 +42,7 @@ func (h *CommandHandler) HandleCommand(id, action string) *message.CmdResultPayl
 	if _, ok := h.commands[id]; ok {
 		return &message.CmdResultPayload{
 			ID:    id,
-			Error: fmt.Errorf("command %s has already been handled", id),
+			Error: fmt.Sprintf("command %s has already been handled", id),
 		}
 	}
 	var stdOut, stdErr string
@@ -62,9 +62,13 @@ func (h *CommandHandler) HandleCommand(id, action string) *message.CmdResultPayl
 		action:     action,
 		receivedAt: time.Now(),
 	}
+	errMsg := ""
+	if err != nil {
+		errMsg = err.Error()
+	}
 	return &message.CmdResultPayload{
 		ID:        id,
-		Error:     err,
+		Error:     errMsg,
 		StdOutput: stdOut,
 		StdError:  stdErr,
 	}
