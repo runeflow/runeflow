@@ -59,10 +59,10 @@ type CmdAckPayload struct {
 // command, the client might send a failure message but if the reboot is
 // successful, the connection will be terminated.
 type CmdResultPayload struct {
-	ID        string `json:"id"`
-	Error     string `json:"error"`
-	StdOutput string `json:"stdOutput"`
-	StdError  string `json:"stdError"`
+	ID     string `json:"id"`
+	Error  string `json:"error"`
+	StdOut string `json:"stdOut"`
+	StdErr string `json:"stdErr"`
 }
 
 // A DiskStats represents the stats for a mounted filesystem
