@@ -2,17 +2,12 @@ package apache
 
 import (
 	"log"
+
+	"github.com/runeflow/runeflow/message"
 )
 
 // Monitor is a monitor for the Apache web server
 type Monitor struct{}
-
-// Stats are the apache statistics we retrieve
-type Stats struct {
-	IsRunning         bool    `json:"isRunning"`
-	Uptime            int64   `json:"uptime"`
-	RequestsPerSecond float64 `json:"requestsPerSecond"`
-}
 
 // NewMonitor creates a new apache monitor
 func NewMonitor() *Monitor {
@@ -20,16 +15,15 @@ func NewMonitor() *Monitor {
 }
 
 // Sample collects apache statistics
-func (m *Monitor) Sample() interface{} {
-	stats := &Stats{
+func (m *Monitor) Sample(stats *message.StatsPayload) {
+	stats.Apache = &message.ApacheStats{
 		IsRunning: isRunning(),
 	}
 	status, err := serverStatus()
 	if err != nil {
 		log.Printf("server status error: %v", err)
-		return nil
+		return
 	}
-	stats.Uptime = status.getInt("ServerUptimeSeconds")
-	stats.RequestsPerSecond = status.getFloat("ReqPerSec")
-	return stats
+	stats.Apache.Uptime = status.getInt("ServerUptimeSeconds")
+	stats.Apache.RequestsPerSecond = status.getFloat("ReqPerSec")
 }

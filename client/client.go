@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
-	"time"
 
 	"github.com/gorilla/websocket"
 	"github.com/runeflow/runeflow/message"
@@ -84,14 +83,11 @@ func (c *Client) ReadMessage() (*message.Message, error) {
 }
 
 // SendStats sends some statistics
-func (c *Client) SendStats(stats map[string]interface{}) error {
+func (c *Client) SendStats(stats *message.StatsPayload) error {
 	if c.conn == nil {
 		return ErrConnectionNotOpen
 	}
-	statsMessage, err := message.NewStatsMessage(&message.StatsPayload{
-		Stats:     stats,
-		Timestamp: time.Now(),
-	})
+	statsMessage, err := message.NewStatsMessage(stats)
 	if err != nil {
 		return err
 	}
