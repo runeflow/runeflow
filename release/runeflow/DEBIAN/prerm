@@ -2,4 +2,10 @@
 
 systemctl stop runeflow.service
 systemctl disable runeflow.service
-rm -rf /var/lib/runeflow
+
+echo "args: $1"
+
+if [ "$1" = "remove" ]; then
+  echo "removing agent_id file"
+  rm -rf /var/lib/runeflow
+fi
