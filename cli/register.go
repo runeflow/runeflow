@@ -16,7 +16,6 @@ func register(a *api.API) {
 	flag.StringVar(&firstName, "first-name", "", "Your first name for your account")
 	flag.StringVar(&lastName, "last-name", "", "Your last name for your account")
 	flag.Parse()
-	fmt.Println(email, firstName, lastName)
 	if email == "" {
 		email = util.PromptString("Email: ")
 	}

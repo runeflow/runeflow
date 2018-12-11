@@ -106,6 +106,9 @@ printf "\033[32m* Register for Free Runeflow Account...\n\033[0m\n"
 read -p "Email: " EMAIL
 read -p "First Name: " FIRST_NAME
 read -p "Last Name: " LAST_NAME
+# Optional in this script
+FIRST_NAME=${FIRST_NAME:-" "}
+LAST_NAME=${LAST_NAME:-" "}
 $sudo_cmd runeflow register --email=$EMAIL --first-name=$FIRST_NAME --last-name=$LAST_NAME
 
 printf "\033[32m* Add Agent to account...\n\033[0m\n"
