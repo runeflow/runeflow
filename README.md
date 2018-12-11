@@ -16,7 +16,7 @@ disclose by contacting us at security@runeflow.com.
 ## Quickstart: Install the Runeflow CLI
 The easy 1-liner to install the Runeflow agent. Supports Ubuntu and Debian.
 ```
-curl -sS https://i.runeflow.com | sudo bash
+curl -sS https://i.runeflow.com | bash
 ```
 We encourage you to examine the script before running it! You can also download
 the script locally and then run it to ensure you know what is being executed.

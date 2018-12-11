@@ -7,13 +7,14 @@ import (
 	"github.com/runeflow/runeflow/api"
 	"github.com/runeflow/runeflow/osrelease"
 	"github.com/runeflow/runeflow/util"
+	flag "github.com/spf13/pflag"
 )
 
 func auth(a *api.API) {
 	var email string
-	if len(os.Args) == 4 && os.Args[2] == "--email" {
-		email = os.Args[3]
-	} else {
+	flag.StringVar(&email, "email", "", "Email of the account you wish to connect this agent to.")
+	flag.Parse()
+	if email == "" {
 		email = util.PromptString("Email: ")
 	}
 	if err := a.Authorize(email, getHostname(), getOSName()); err != nil {
