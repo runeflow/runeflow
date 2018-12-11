@@ -103,10 +103,13 @@ fi
 
 ## Sign up for a Runeflow account
 printf "\033[32m* Register for Free Runeflow Account...\n\033[0m\n"
-$sudo_cmd runeflow register
+read -p "Email: " EMAIL
+read -p "First Name: " FIRST_NAME
+read -p "Last Name: " LAST_NAME
+$sudo_cmd runeflow register --email=$EMAIL --first-name=$FIRST_NAME --last-name=$LAST_NAME
 
 printf "\033[32m* Add Agent to account...\n\033[0m\n"
-$sudo_cmd runeflow auth
+$sudo_cmd runeflow auth --email=$EMAIL
 
 stop_instructions="$sudo_cmd service runeflow stop"
 start_instructions="$sudo_cmd service runeflow start"
