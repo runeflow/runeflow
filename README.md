@@ -115,7 +115,7 @@ The Runeflow agent looks for a configuration file at
 These values can also be set with environment variables. For example:
 
 ```
-RUNEFLOW_ENDPOING=https://my-server.com/runeflow ./build/runeflow
+RUNEFLOW_ENDPOINT=https://my-server.com/runeflow ./build/runeflow
 ```
 
 # Contributing
