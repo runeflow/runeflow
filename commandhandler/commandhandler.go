@@ -55,16 +55,16 @@ func (h *CommandHandler) HandleCommand(id, action string) *message.CmdResultPayl
 	case command.RestartMySQL:
 		stdOut, stdErr, err = restartMySQL()
 	}
-	h.commands[id] = &commandState{
-		stdOut:     stdOut,
-		stdErr:     stdErr,
-		err:        err.Error(),
-		action:     action,
-		receivedAt: time.Now(),
-	}
 	errMsg := ""
 	if err != nil {
 		errMsg = err.Error()
+	}
+	h.commands[id] = &commandState{
+		stdOut:     stdOut,
+		stdErr:     stdErr,
+		err:        errMsg,
+		action:     action,
+		receivedAt: time.Now().UTC(),
 	}
 	return &message.CmdResultPayload{
 		ID:     id,
