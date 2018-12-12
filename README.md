@@ -66,7 +66,7 @@ However, this can be a useful tool for quickly testing out Runeflow on staging
 servers.
 
 ```
-curl -sS https://i.runeflow.com | bash
+bash -c "$(curl -s https://i.runeflow.com)"
 ```
 
 We encourage you to examine the script before running it! You can also download
