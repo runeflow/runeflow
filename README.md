@@ -12,16 +12,21 @@ routinely fix common problems on your server (like restarting Apache, or MySQL
 when memory usage gets too high). This repo is the server agent that works with
 the [Runeflow](https://runeflow.com) web service.
 
-Please note: We take Runeflow's security and our users' trust very seriously.
-If you believe you have found a security issue in Runeflow, please responsibly
-disclose by contacting us at security@runeflow.com.
+**Please note**: We take Runeflow's security and our users' trust very
+seriously.  If you believe you have found a security issue in Runeflow, please
+responsibly disclose by contacting us at security@runeflow.com.
 
 ![Runeflow dashboard](https://assets.runeflow.com/product.png)
 
 ## Installation
 
-To get started with Runeflow, install the CLI on your servers. We offer several
-ways to do this.
+To get started with Runeflow, install the CLI on your servers. The CLI will
+automatically pickup your Wordpress sites and also collect CPU, memory, swap,
+and disk usage metrics. These important metrics allow you to better understand
+what the root cause of a problem actually is so you can triage it faster.
+
+There are several easy ways to install Runeflow. Keep in mind we currently only
+support Ubuntu and Debian Linux distributions.
 
 ### Recommended Installation
 
@@ -75,6 +80,8 @@ bash -c "$(curl -s https://i.runeflow.com)"
 
 We encourage you to examine the script before running it! You can also download
 the script locally and then run it to ensure you know what is being executed.
+The script executes the steps above with some extra checks for different
+distributions.
 
 ### Install from source
 
@@ -100,6 +107,11 @@ $ go build -o "build/runeflow" ./cli
 
 You can run the Agent with `./build/runeflow`. You may want to change the
 endpoints it communicates with, see Configuration.
+
+You may also want to move the agent to `/usr/bin/runeflow`. You can then use
+the
+[Systemd](https://github.com/runeflow/runeflow/blob/master/release/runeflow/etc/systemd/system/runeflow.service)
+service to load runeflow as a system service.
 
 # Testing
 
