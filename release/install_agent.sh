@@ -114,6 +114,9 @@ $sudo_cmd runeflow register --email=$EMAIL --first-name=$FIRST_NAME --last-name=
 printf "\033[32m* Add Agent to account...\n\033[0m\n"
 $sudo_cmd runeflow auth --email=$EMAIL
 
+printf "\033[32m* Restarting agent with new configuration...\n\033[0m\n"
+$sudo_cmd service runeflow restart
+
 stop_instructions="$sudo_cmd service runeflow stop"
 start_instructions="$sudo_cmd service runeflow start"
 
