@@ -31,7 +31,8 @@ support Ubuntu and Debian Linux distributions.
 ### Recommended Installation
 
 These commands will import our code signing key, add our [apt repository on
-Bintray](https://bintray.com/runeflow/debian), and install the CLI.
+Bintray](https://bintray.com/runeflow/debian), and install the CLI. You may
+need to run this commands as root.
 
 ```
 $ wget -qO - 'https://bintray.com/user/downloadSubjectPublicKey?username=bintray' | sudo apt-key add -
@@ -65,6 +66,12 @@ line. This is more convenient for scripting.
 
 ```
 $ runeflow auth --email me@example.com
+```
+
+Once you have configured the agent, restart it so it picks up the new configuration.
+
+```
+$ sudo service runeflow restart
 ```
 
 ### Alternate one-liner setup
