@@ -7,8 +7,10 @@
 
 Runeflow ✨ automagically sets up monitoring for your self-hosted Wordpress
 sites. It monitors your server usage, like CPU, memory, and disk space, and
-will send you an email so you can fix problems that occur. This repo is the
-server agent that works with the [Runeflow](https://runeflow.com) web service.
+will send you an email so you can fix problems that occur. It can also
+routinely fix common problems on your server (like restarting Apache, or MySQL
+when memory usage gets too high). This repo is the server agent that works with
+the [Runeflow](https://runeflow.com) web service.
 
 Please note: We take Runeflow's security and our users' trust very seriously.
 If you believe you have found a security issue in Runeflow, please responsibly
