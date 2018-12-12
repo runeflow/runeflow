@@ -14,6 +14,8 @@ Please note: We take Runeflow's security and our users' trust very seriously.
 If you believe you have found a security issue in Runeflow, please responsibly
 disclose by contacting us at security@runeflow.com.
 
+![Runeflow dashboard](https://assets.runeflow.com/product.png)
+
 ## Installation
 
 To get started with Runeflow, install the CLI on your servers. We offer several
